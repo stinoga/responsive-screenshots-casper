@@ -9,6 +9,7 @@ var casper = require("casper").create(),
     ],
     url = casper.cli.args[0],
     dirPath = "screens/",
+    waitTime = 5000 || casper.cli.args[1],
     saveDir = dirPath + url.replace(/[^a-zA-Z0-9]/gi, '-').replace(/^https?-+/, '');
 
 casper.start();
@@ -18,7 +19,7 @@ casper.each(viewportSizes, function(self, viewportSize, i) {
   var width = viewportSize[0],
       height = viewportSize[1];
   //give some time for the page to load
-  casper.wait(5000, function() {
+  casper.wait(waitTime, function() {
     //set the viewport to the desired height and width
     this.viewport(width, height);
     casper.thenOpen(url, function() {
